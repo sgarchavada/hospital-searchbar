@@ -1,0 +1,92 @@
+.mainContainer {
+  flex: 1;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100px;
+
+  .title {
+    color: white;
+    font-size: 24px;
+  }
+
+  >input {
+    background-color: #000;
+    border: none;
+    padding: 15px;
+    width: 75%;
+    margin-top: 30px;
+    border-radius: 15px;
+    font-size: 20px;
+    color: #fff;
+  }
+
+  >input::placeholder {
+    color: #fff;
+  }
+
+  >input::selection,
+  input:focus {
+    outline: none;
+  }
+
+  >input[data-is-options-visible="true"] {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .optionsContainer {
+    padding: 15px;
+    width: 75%;
+    background-color: rgba($color: #000000, $alpha: 0.4);
+    color: #fff;
+    max-height: 30vh;
+    overflow: auto;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+
+    .listItem {
+      padding: 10px;
+      cursor: pointer;
+
+      >span {
+        color: #fff;
+        font-weight: bold;
+      }
+    }
+
+    .listItemCard {
+      display: flex;
+      border: 1px solid gray;
+      margin-bottom: 10px;
+      border-radius: 15px;
+      padding: 10px;
+      cursor: pointer;
+
+      >img {
+        height: 100px;
+        width: 150px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-right: 15px;
+      }
+
+      .details {
+        display: flex;
+        flex-direction: column;
+
+        .name {
+          font-size: 20px;
+          font-weight: bold;
+          color: #fff;
+        }
+
+        >span {
+          color: lightgray;
+          margin-bottom: 10px;
+        }
+      }
+
+    }
+  }
+}
