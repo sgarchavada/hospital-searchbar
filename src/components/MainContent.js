@@ -75,6 +75,7 @@ const HOSPITALS = [
 const MainContent = () => {
   const [searchText, setSearchText] = useState("");
   const [optionsVisible, setOptionsVisible] = useState(false);
+  const [selectedHospital, setSelectedHospital] = useState('');
 
   const searchedData = useMemo(() => {
     const tempArr = JSON.parse(JSON.stringify(HOSPITALS));
@@ -93,6 +94,14 @@ const MainContent = () => {
 
   const toggleOptions = () => setOptionsVisible(!optionsVisible);
 
+  const renderData = searchedData?.length > 0 ? searchedData : HOSPITALS;
+
+  const onItemSelection = (i) => {
+    setSearchText(i.name)
+    setSelectedHospital(i)
+    setOptionsVisible(false)
+  }
+
   return (
     <Container className={styles.mainContainer}>
       <span className={styles.title}>Search For Hospitals Nearby You</span>
@@ -105,36 +114,31 @@ const MainContent = () => {
       />
       {optionsVisible && (
         <div className={styles.optionsContainer}>
-          {searchedData?.length > 0
-            ? searchedData?.map((i, index) => {
-              return (
-                <div
-                  key={index}
-                  className={styles.listItemCard}
-                  onClick={() => setSearchText(i.name)}
-                >
-                  <img src={i.img} alt="img" />
-                  <div className={styles.details}>
-                    <span className={styles.name}>{i.name}</span>
-                    <span>{i.address}</span>
-                    <span>No of Beds : {i.no_of_beds}</span>
-                  </div>
-                </div>
-              );
-            })
-            :
-            HOSPITALS.map((item, index) => (
+          {renderData?.map((i, index) => {
+            return (
               <div
                 key={index}
                 className={styles.listItem}
-                onClick={() => setSearchText(item.name)}
+                onClick={() => onItemSelection(i)}
               >
-                <span>{item?.name}</span>
+                <span>{i?.name}</span>
               </div>
-            ))
+            )
+          })
           }
         </div>
       )}
+
+      {selectedHospital && <div
+        className={styles.listItemCard}
+      >
+        <img src={selectedHospital.img} alt="img" />
+        <div className={styles.details}>
+          <span className={styles.name}>{selectedHospital.name}</span>
+          <span>{selectedHospital.address}</span>
+          <span>No of Beds : {selectedHospital.no_of_beds}</span>
+        </div>
+      </div>}
     </Container>
   );
 };
